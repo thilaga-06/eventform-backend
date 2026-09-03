@@ -7,15 +7,11 @@ WORKDIR /app
 # Install Maven
 RUN apk add --no-cache maven
 
-# Copy project files
-COPY pom.xml .
-COPY src ./src
+# Copy all project files
+COPY . .
 
-# Build the JAR
+# Build the JAR inside the container
 RUN mvn clean package -DskipTests
 
-# Copy the generated JAR to the container
-COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
-
-# Run the application
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Run the generated JAR directly (no extra copy needed)
+ENTRYPOINT ["java","-jar","target/demo-0.0.1-SNAPSHOT.jar"]
