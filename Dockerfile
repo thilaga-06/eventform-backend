@@ -1,5 +1,7 @@
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
+# Install bash and Maven dependencies
+RUN apk add --no-cache bash
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN chmod +x mvnw
